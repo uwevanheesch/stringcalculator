@@ -1,20 +1,16 @@
 package nl.oose;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class StringCalculatorTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+class StringCalculatorTest {
 
     private StringCalculator sut;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         sut = new StringCalculator();
     }
@@ -51,13 +47,19 @@ public class StringCalculatorTest {
 
     @Test
     public void testThatExceptionIsThrownForNegativeValues() {
-        thrown.expectMessage("Negatieve waarde niet toegestaan: -1");
-        sut.add("-1,2");
+        Exception thrown = assertThrows(Exception.class, () -> {
+            sut.add("-1,2");
+        });
+        assertEquals("Negatieve waarde niet toegestaan: -1", thrown.getMessage());
     }
 
     @Test
     public void testThatExceptionIsThrownForMultipleNegativeValues() {
-        thrown.expectMessage("Negatieve waarde niet toegestaan: -1, -3");
-        sut.add("-1,-3");
+        Exception thrown = assertThrows(Exception.class, () -> {
+            sut.add("-1,-3");
+        });
+        assertEquals("Negatieve waarde niet toegestaan: -1, -3", thrown.getMessage());
     }
+
+
 }
