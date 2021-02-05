@@ -11,7 +11,7 @@ class StringCalculatorTest {
     private StringCalculator sut;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         sut = new StringCalculator();
     }
 
